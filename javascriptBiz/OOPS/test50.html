@@ -1,0 +1,15 @@
+<form action="success.html">
+    Parameter:<input type="text" name="param"/> <br>
+    <input type="submit" value="submit" onclick="return validate()"/>
+
+</form>
+<script>
+    function validate()
+    {
+        if(document.forms[0].param.valute.length == 0)
+        {
+            alert("Pls enter Parameter");
+            return false;
+        }
+    }
+</script>

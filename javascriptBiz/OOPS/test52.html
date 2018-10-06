@@ -1,0 +1,144 @@
+<form action="success.html" name="f1">
+    Name:<input type="text" name="param"/> <br>
+    Email:<input type="email" name="email"/><br>
+    <span style="color:red" id="emailError"></span><br>
+    Address:<textarea name="address"></textarea><br>
+    Gender : <input type="radio" name="gender" value="m"/>Male
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" name="gender" value="f"/>Female<br><br>
+    Skills : <input type="checkbox" name="skill" value="c"/> &nbsp;
+    <input type="checkbox" name="skill" value="cpp"/>C++ &nbsp;
+    <input type="checkbox" name="skill" value="Sql"/>SQL &nbsp;
+    <input type="checkbox" name="skill" value="java"/>JAVA &nbsp;<br>
+    Education:
+  <select name="education">
+    <option value="">Please Select</option>
+    <option value="be">BE</option>
+    <option value="mca">MCA</option>
+    <option value="mba">MBA</option>
+	</select> <br>
+    
+    <input type="submit" value="submit" onclick="return validate()" value="Validate Email">
+
+</form>
+<script>
+    function validate()
+    {
+        var thisForm = document.f1;
+        var param = thisForm.param;
+        if(param.value.length == 0)
+        {
+            alert("Pls enter Parameter");
+            param.focus();
+            return false;
+        }
+        var email=thisForm.email;
+        if(email.value.length == 0 )
+        {
+            alert("Please Provide email");
+            email.focus();
+            return false;
+        }
+       
+        var value = thisForm.email.value;
+       var emailError = document.getElementById("emailError");
+       emailError.innerHTML="";
+       
+       //check @ occurance
+	  var atIndex = value.indexOf('@');
+	  
+	  if(atIndex == -1)
+	  {
+         emailError.innerHTML = value + " Should contain @";
+	   }
+	  //check multiple @ occurance
+	   var secondAt = value.indexOf('@', atIndex + 1);
+	  if(secondAt != -1)
+	  {
+         emailError.innerHTML = value + " Should not contain multiple @";
+	   }
+	  
+	   //check dot occurance after @
+	   var dotIndex = value.indexOf('.', atIndex + 1);
+	  if(dotIndex == -1)
+	  {
+         emailError.innerHTML = value + " min one dot after @";
+	   }
+	  
+	   //check for invalid occurance like .@ || @. || ..
+	  
+	  if(value.indexOf(".@") != -1 || value.indexOf("@.") != -1 || value.indexOf("..") != -1)
+	  {
+         emailError.innerHTML = value + " invalid occurance like .@ || @. || ..";
+	   }
+	  
+	  //first and last chars should be only aplhabets
+	   // [a-z] ==> 97 to 122
+	   // [A-Z] ==> 65 to 90
+	  var firstCharAscii = value.charCodeAt(0);
+	  
+	  if(!((firstCharAscii >= 97 && firstCharAscii <= 122) || (firstCharAscii >= 65 && firstCharAscii <= 90)) )
+
+	  {
+		  emailError.innerHTML = value + " should start with only alphabets";
+
+		  }
+		  
+	  var lastCharAscii = value.charCodeAt(value.length - 1);
+	  if(!((lastCharAscii >= 97 && lastCharAscii <= 122) || (lastCharAscii >= 65 && lastCharAscii <= 90)) )
+
+	  {
+		  emailError.innerHTML = value + " should end with only alphabets";
+
+		  }
+        var address = thisForm.address;
+        if(address.value.length == 0)
+        {
+            alert("Address is required one");
+            address.focus();
+            return false;
+        }
+        var gender = thisForm.gender;
+        var status = false;
+        for(var i=0; i<gender.length;i++)
+        {
+            if(gender[i].checked)
+            {
+                status = true;
+                break;
+            }
+        }
+        if(!status)
+        {
+            alert("Select gender");
+            gender[1].focus();
+            return false;
+        }
+        var skill=thisForm.skill;
+        var status = false;
+        for(var i = 0 ; i < skill.length; i++)
+        {
+            if(skill[i].checked)
+            {
+                status = true;
+                break;
+            }
+        }
+        if(!status)
+        {
+            alert("Pls select at one skill");
+            skill[0].focus();
+            return false;
+        }
+        var education=thisForm.education;
+        if(education.value == "")
+        {
+            alert("Please select education");
+            education.focus();
+            return false;
+        }
+       
+		  
+    }
+
+</script>
